@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var volleyball = require('volleyball');
+var nunjucks = require('nunjucks');
 
 app.listen(3000, function(){
 	console.log("server listening");
@@ -11,7 +12,11 @@ app.listen(3000, function(){
 
 // 	next();
 // });
-
+// var people = [{name: 'Grace'}, {name: 'Cara'}, {name: 'Ally'}];
+//var responseNunjucks = nunjucks.render('views/index.html', {title: 'List of People', people: people});
+var responseNunjuscks = app.render();
+app.engine('html', nunjucks.render);
+app.set('view engine', 'html');
 app.use(volleyball);
 
 app.use('/special', function(req, res, next){
@@ -19,7 +24,8 @@ app.use('/special', function(req, res, next){
 });
 
 app.get('/', function(req, res, next){
-	res.send('this is a response to GET\n');
+	//res.send('this is a response to GET\n');
+	res.send(responseNunjucks);
 });
 
 app.get('/news', function(req, res, next){
