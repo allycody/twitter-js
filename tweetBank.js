@@ -1,9 +1,11 @@
 var _ = require('lodash');
 
 var data =[];
+var index = 0;
 
 function add (name, content) {
-  data.push({ name: name, content: content });
+
+  data.push({ name: name, content: content, id: index++});
 }
 
 function list () {
@@ -32,9 +34,9 @@ var getFakeTweet = function() {
 };
 
 for (var i = 0; i < 10; i++) {
-  module.exports.add( getFakeName(), getFakeTweet() );
+  module.exports.add( getFakeName(), getFakeTweet());
 }
 module.exports.add( 'Ally Cody', 'we are going to finish this workshop!' );
 module.exports.add('Cara Weber', "That is exciting...");
-console.log(module.exports.find(function(x){return x.name === 'Ally Cody';}));
-console.log(data);
+// console.log(module.exports.find(function(x){return x.name === 'Ally Cody';}));
+// console.log(data);

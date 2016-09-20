@@ -3,6 +3,8 @@ var app = express();
 var volleyball = require('volleyball');
 var nunjucks = require('nunjucks');
 var routes = require('./routes/')
+var bodyParser = require('body-parser');
+
 
 app.listen(3000, function(){
 	console.log("server listening");
@@ -25,6 +27,8 @@ app.engine('html', nunjucks.render);
 
 
 app.use(volleyball);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use('/', routes);
 app.use(express.static('public'));
 
