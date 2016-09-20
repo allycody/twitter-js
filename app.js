@@ -12,11 +12,15 @@ app.listen(3000, function(){
 
 // 	next();
 // });
-// var people = [{name: 'Grace'}, {name: 'Cara'}, {name: 'Ally'}];
+var people = [{name: 'Grace'}, {name: 'Cara'}, {name: 'Ally'}];
 //var responseNunjucks = nunjucks.render('views/index.html', {title: 'List of People', people: people});
-var responseNunjuscks = app.render();
-app.engine('html', nunjucks.render);
+//var responseNunjuscks = app.render();
+nunjucks.configure('views');
+
 app.set('view engine', 'html');
+app.engine('html', nunjucks.render);
+
+
 app.use(volleyball);
 
 app.use('/special', function(req, res, next){
@@ -25,7 +29,7 @@ app.use('/special', function(req, res, next){
 
 app.get('/', function(req, res, next){
 	//res.send('this is a response to GET\n');
-	res.send(responseNunjucks);
+	res.render('index.html', {title: 'List of People', people: people});
 });
 
 app.get('/news', function(req, res, next){
