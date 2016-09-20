@@ -4,11 +4,13 @@ var volleyball = require('volleyball');
 var nunjucks = require('nunjucks');
 var routes = require('./routes/')
 var bodyParser = require('body-parser');
+var socketio = require('socket.io');
 
 
-app.listen(3000, function(){
+var server = app.listen(3000, function(){
 	console.log("server listening");
 });
+var io = socketio.listen(server);
 // app.use(function(req, res, next){
 // 	console.log(req.method);
 // 	console.log(req.url);
@@ -29,7 +31,7 @@ app.engine('html', nunjucks.render);
 app.use(volleyball);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use('/', routes);
+app.use('/', routes(io));
 app.use(express.static('public'));
 
 // app.use('/special', function(req, res, next){

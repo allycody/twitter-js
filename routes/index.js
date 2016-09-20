@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 // could use one line instead: var router = require('express').Router();
 var tweetBank = require('../tweetBank');
 
+module.exports = function(io){
+
 router.get('/', function (req, res) {
   var tweets = tweetBank.list();
   res.render( 'index', { tweets: tweets, showForm: true, addName: false} );
@@ -15,7 +17,7 @@ router.get('/', function (req, res) {
 // });
 router.get('/users/:name', function(req, res, next){
 	var findName = req.params.name;
-	console.log(findName);
+	console.log(typeof findName);
 	var filteredTweets = tweetBank.find(function(x){
 		return x.name === findName;
 	});
@@ -50,5 +52,6 @@ router.post('/tweets', function(req, res, next) {
 	res.redirect('/');
 });
 
+return router;
+};
 
-module.exports = router;
